@@ -42,7 +42,7 @@ const ConfirmationCode: React.FC = () => {
     setDecoded('');
 
     try {
-      const response = await axios.post('/api/encode', { code: input });
+      const response = await axios.post('http://localhost:8000/api/encode/', { code: input });
       setEncoded(response.data.encoded);
     } catch (err) {
       setError('Failed to encode the confirmation code');
@@ -58,7 +58,7 @@ const ConfirmationCode: React.FC = () => {
     setDecoded('');
 
     try {
-      const response = await axios.post('/api/decode', { encoded: input });
+      const response = await axios.post('http://localhost:8000/api/decode/', { encoded: input });
       setDecoded(response.data.decoded);
     } catch (err) {
       setError('Failed to decode the confirmation code');

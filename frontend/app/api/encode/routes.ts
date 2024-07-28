@@ -1,22 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
-type Data = {
-  encoded?: string;
-  error?: string;
-};
+export async function POST(req: NextRequest) {
+  const { code } = await req.json();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  if (req.method === 'POST') {
-    const { code } = req.body;
-
-    try {
-      const response = await axios.post('http://localhost:8000/api/encode/', { code });
-      res.status(200).json({ encoded: response.data.encoded });
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to encode the confirmation code' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
+  try {
+    const response = await axios.post('http://localhost:8000/api/encode/', { code });
+    return NextResponse.json({ encoded: response.data.encoded });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to encode the confirmation code' }, { status: 500 });
   }
 }
