@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+    volumes:
+      - ./backend:/app
+    command: gunicorn --bind 0.0.0.0:8000 veriphrase.wsgi:application
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app
+    command: yarn dev
+
+    # Ensure the backend is available for the frontend service
+    depends_on:
+      - backend
