@@ -1,6 +1,10 @@
 {
-  "name": "frontend",
+  "name": "veriphrase",
   "version": "0.1.0",
+  "description": "Produces human-readable alphanumeric & special character 3 hash-separated unique words",
+  "author": {
+    "name": "Eric Gitangu <developer.ericgitangu@gmail.com>"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
